@@ -4,8 +4,6 @@
 
 **The Next Generation of AI-Powered Dashboard Solutions**
 
-![NeuroFlow Banner](https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=400&fit=crop)
-
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.14-black?logo=next.js&logoColor=white&style=for-the-badge)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6+-blue?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38bdf8?logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com)
