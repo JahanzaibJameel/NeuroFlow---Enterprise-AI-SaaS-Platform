@@ -1,9 +1,20 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Activity as ActivityIcon, Clock, Calendar, TrendingUp } from 'lucide-react';
+import {
+  Activity as ActivityIcon,
+  Clock,
+  Calendar,
+  TrendingUp,
+} from 'lucide-react';
 
 const activities = [
   {
@@ -50,7 +61,9 @@ export default function ActivityPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-2">Activity</h1>
-          <p className="text-muted-foreground">Recent activity across your account</p>
+          <p className="text-muted-foreground">
+            Recent activity across your account
+          </p>
         </div>
       </div>
 
@@ -58,7 +71,9 @@ export default function ActivityPage() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Today's Actions</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Today&apos;s Actions
+            </CardTitle>
             <ActivityIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -92,7 +107,9 @@ export default function ActivityPage() {
       <Card>
         <CardHeader>
           <CardTitle>Recent Activity</CardTitle>
-          <CardDescription>Your latest actions and interactions</CardDescription>
+          <CardDescription>
+            Your latest actions and interactions
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -101,19 +118,27 @@ export default function ActivityPage() {
                 key={activity.id}
                 className="flex items-start gap-4 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
               >
-                <div className={`mt-1 p-2 rounded-full ${
-                  activity.type === 'auth' ? 'bg-blue-100 text-blue-600' :
-                  activity.type === 'project' ? 'bg-green-100 text-green-600' :
-                  activity.type === 'ai' ? 'bg-purple-100 text-purple-600' :
-                  activity.type === 'analytics' ? 'bg-orange-100 text-orange-600' :
-                  'bg-gray-100 text-gray-600'
-                }`}>
+                <div
+                  className={`mt-1 p-2 rounded-full ${
+                    activity.type === 'auth'
+                      ? 'bg-blue-100 text-blue-600'
+                      : activity.type === 'project'
+                        ? 'bg-green-100 text-green-600'
+                        : activity.type === 'ai'
+                          ? 'bg-purple-100 text-purple-600'
+                          : activity.type === 'analytics'
+                            ? 'bg-orange-100 text-orange-600'
+                            : 'bg-gray-100 text-gray-600'
+                  }`}
+                >
                   <ActivityIcon className="h-4 w-4" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <h4 className="font-semibold">{activity.action}</h4>
-                    <span className="text-xs text-muted-foreground">{activity.time}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {activity.time}
+                    </span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
                     {activity.description}
@@ -129,7 +154,9 @@ export default function ActivityPage() {
       <Card>
         <CardHeader>
           <CardTitle>Export Activity Log</CardTitle>
-          <CardDescription>Download your activity history for analysis</CardDescription>
+          <CardDescription>
+            Download your activity history for analysis
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground mb-4">
