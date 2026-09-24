@@ -1,5 +1,6 @@
 import { streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
+import { LanguageModel } from 'ai';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { auth } from '@/lib/auth';
@@ -16,10 +17,7 @@ export async function POST(request: Request) {
     // Check authentication
     const session = await auth();
     if (!session || !session.user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const userId = session.user.id;
@@ -67,8 +65,10 @@ export async function POST(request: Request) {
     }
 
     // Fall back to AI text generation for non-component prompts
+    // Note: @ai-sdk/openai returns LanguageModelV3 but ai@3.x expects LanguageModelV1.
+    // The runtime model works correctly; casting is needed for type compatibility.
     const result = await streamText({
-      model: openai('gpt-4o-mini') as any,
+      model: openai('gpt-4o-mini') as unknown as LanguageModel,
       system: `You are NeuroFlow's AI assistant. You help users build UI components and provide code suggestions.
       
 When users ask for UI components, respond with clear, concise React/Tailwind code examples.
@@ -115,20 +115,28 @@ Format your responses with clear explanations followed by code blocks when appro
 
     // Log AI usage (async, don't block response)
     const resultData = await result;
-    resultData.usage.then((usage: { totalTokens?: number }) => {
-      prisma.aIUsage.create({
-        data: {
-          userId,
-          prompt: validatedData.prompt,
-          tokens: usage.totalTokens || 0,
-        },
-      }).catch((error) => logger.error('AI usage logging failed', error));
-    }).catch((error) => logger.error('AI usage promise failed', error));
+    resultData.usage
+      .then((usage: { totalTokens?: number }) => {
+        prisma.aIUsage
+          .create({
+            data: {
+              userId,
+              prompt: validatedData.prompt,
+              tokens: usage.totalTokens || 0,
+            },
+          })
+          .catch((error: unknown) =>
+            logger.error('AI usage logging failed', error)
+          );
+      })
+      .catch((error: unknown) =>
+        logger.error('AI usage promise failed', error)
+      );
 
     return result.toDataStreamResponse();
   } catch (error) {
     logger.error('AI API error', error, { action: 'stream' });
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid request', details: error.errors },
@@ -143,5 +151,4 @@ Format your responses with clear explanations followed by code blocks when appro
   }
 }
 
-// Force edge runtime for better performance
-export const runtime = 'edge';
+export const runtime = 'nodejs';
