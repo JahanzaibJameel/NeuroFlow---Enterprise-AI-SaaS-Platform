@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Users, FolderOpen, Sparkles, TrendingUp } from 'lucide-react';
 
 const stats = [
@@ -36,7 +42,7 @@ export default function DashboardOverviewPage() {
       <div>
         <h1 className="text-3xl font-bold mb-2">Dashboard Overview</h1>
         <p className="text-muted-foreground">
-          Welcome back! Here's what's happening with your projects.
+          Welcome back! Here&apos;s what&apos;s happening with your projects.
         </p>
       </div>
 
