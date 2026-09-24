@@ -26,12 +26,19 @@ export const componentRegistry = {
     return {
       type: 'TopProjects',
       props: {
-        projects: projects.map((p) => ({
-          id: p.id,
-          name: p.name,
-          description: p.description,
-          updatedAt: p.updatedAt,
-        })),
+        projects: projects.map(
+          (p: {
+            id: string;
+            name: string;
+            description: string | null;
+            updatedAt: Date;
+          }) => ({
+            id: p.id,
+            name: p.name,
+            description: p.description,
+            updatedAt: p.updatedAt,
+          })
+        ),
       },
     };
   },
@@ -46,13 +53,21 @@ export const componentRegistry = {
     return {
       type: 'RecentActivity',
       props: {
-        activities: notifications.map((n) => ({
-          id: n.id,
-          title: n.title,
-          content: n.content,
-          timestamp: n.createdAt,
-          read: n.read,
-        })),
+        activities: notifications.map(
+          (n: {
+            id: string;
+            title: string;
+            content: string | null;
+            createdAt: Date;
+            read: boolean;
+          }) => ({
+            id: n.id,
+            title: n.title,
+            content: n.content,
+            timestamp: n.createdAt,
+            read: n.read,
+          })
+        ),
       },
     };
   },
@@ -64,11 +79,17 @@ export const componentRegistry = {
     });
 
     // Group by date for chart
-    const data = aiUsage.reduce((acc: Record<string, number>, usage: { createdAt: Date; tokens: number | null }) => {
-      const date = usage.createdAt.toISOString().split('T')[0];
-      acc[date] = (acc[date] || 0) + (usage.tokens || 0);
-      return acc;
-    }, {} as Record<string, number>);
+    const data = aiUsage.reduce(
+      (
+        acc: Record<string, number>,
+        usage: { createdAt: Date; tokens: number | null }
+      ) => {
+        const date = usage.createdAt.toISOString().split('T')[0];
+        acc[date] = (acc[date] || 0) + (usage.tokens || 0);
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
     return {
       type: 'AnalyticsChart',
@@ -123,35 +144,36 @@ export const componentRegistry = {
  * Prompt to component mapping
  * Uses keyword matching to determine which component to generate
  */
-export const promptToComponent: Record<string, keyof typeof componentRegistry> = {
-  'top projects': 'TopProjects',
-  'recent projects': 'TopProjects',
-  'my projects': 'TopProjects',
-  'activity': 'RecentActivity',
-  'notifications': 'RecentActivity',
-  'recent activity': 'RecentActivity',
-  'analytics': 'AnalyticsChart',
-  'chart': 'AnalyticsChart',
-  'graph': 'AnalyticsChart',
-  'stats': 'UserStats',
-  'statistics': 'UserStats',
-  'metrics': 'UserStats',
-  'team': 'TeamMembers',
-  'members': 'TeamMembers',
-};
+export const promptToComponent: Record<string, keyof typeof componentRegistry> =
+  {
+    'top projects': 'TopProjects',
+    'recent projects': 'TopProjects',
+    'my projects': 'TopProjects',
+    activity: 'RecentActivity',
+    notifications: 'RecentActivity',
+    'recent activity': 'RecentActivity',
+    analytics: 'AnalyticsChart',
+    chart: 'AnalyticsChart',
+    graph: 'AnalyticsChart',
+    stats: 'UserStats',
+    statistics: 'UserStats',
+    metrics: 'UserStats',
+    team: 'TeamMembers',
+    members: 'TeamMembers',
+  };
 
 /**
  * Match user prompt to a component
  */
 export function matchPromptToComponent(prompt: string): string | null {
   const lowerPrompt = prompt.toLowerCase();
-  
+
   for (const [keywords, componentName] of Object.entries(promptToComponent)) {
     if (lowerPrompt.includes(keywords)) {
       return componentName;
     }
   }
-  
+
   return null;
 }
 
@@ -163,13 +185,14 @@ export async function generateComponentFromPrompt(
   userId: string
 ): Promise<GeneratedComponent | null> {
   const componentName = matchPromptToComponent(prompt);
-  
+
   if (!componentName) {
     return null;
   }
 
-  const componentFn = componentRegistry[componentName as keyof typeof componentRegistry];
-  
+  const componentFn =
+    componentRegistry[componentName as keyof typeof componentRegistry];
+
   if (!componentFn) {
     return null;
   }
