@@ -10,7 +10,9 @@ const BrainScene = dynamic(() => import('@/components/3d/BrainScene'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="animate-pulse text-muted-foreground">Loading 3D scene...</div>
+      <div className="animate-pulse text-muted-foreground">
+        Loading 3D scene...
+      </div>
     </div>
   ),
 });
@@ -33,12 +35,11 @@ export default function HomePage() {
         {/* Hero Content */}
         <div className="container mx-auto px-4 text-center z-10">
           <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-6 animate-fade-in">
-            Build AI-Native{' '}
-            <span className="text-primary">SaaS</span> Platforms
+            Build AI-Native <span className="text-primary">SaaS</span> Platforms
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in">
-            NeuroFlow combines generative UI, real-time collaboration, and stunning visuals 
-            to create the future of AI-powered dashboards.
+            NeuroFlow combines generative UI, real-time collaboration, and
+            stunning visuals to create the future of AI-powered dashboards.
           </p>
           <div className="flex gap-4 justify-center animate-fade-in">
             <Link href="/register">
