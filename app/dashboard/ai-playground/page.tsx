@@ -10,10 +10,16 @@ import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 export default function AIPlaygroundPage() {
   const [copied, setCopied] = useState(false);
 
-  const { completion, isLoading, input, handleInputChange, handleSubmit, stop } =
-    useCompletion({
-      api: '/api/ai/stream',
-    });
+  const {
+    completion,
+    isLoading,
+    input,
+    handleInputChange,
+    handleSubmit,
+    stop,
+  } = useCompletion({
+    api: '/api/ai/stream',
+  });
 
   const handleCopy = () => {
     if (completion) {
