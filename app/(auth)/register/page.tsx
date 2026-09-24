@@ -6,7 +6,14 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
 
 export default function RegisterPage() {
@@ -39,7 +46,7 @@ export default function RegisterPage() {
       }
 
       setSuccess(true);
-      
+
       // Auto sign in after registration
       setTimeout(async () => {
         await signIn('credentials', {
@@ -61,7 +68,9 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Create an account
+          </CardTitle>
           <CardDescription>
             Enter your details to get started with NeuroFlow
           </CardDescription>
@@ -119,7 +128,11 @@ export default function RegisterPage() {
                 Must be at least 8 characters
               </p>
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading || success}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading || success}
+            >
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Create Account
             </Button>
@@ -137,7 +150,9 @@ export default function RegisterPage() {
               type="button"
               variant="outline"
               className="w-full"
-              onClick={() => signIn('google', { callbackUrl: '/dashboard/overview' })}
+              onClick={() =>
+                signIn('google', { callbackUrl: '/dashboard/overview' })
+              }
               disabled={isLoading || success}
             >
               Google
