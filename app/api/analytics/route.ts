@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 export async function GET() {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -31,7 +31,12 @@ export async function GET() {
     });
 
     // Transform data for chart
-    const aiUsage = aiUsageRaw.map(item => ({
+    interface AIUsageGroup {
+      createdAt: Date;
+      _sum: { tokens: number | null };
+      _count: { id: number };
+    }
+    const aiUsage = (aiUsageRaw as AIUsageGroup[]).map((item) => ({
       date: item.createdAt.toISOString().split('T')[0],
       tokens: item._sum.tokens || 0,
       requests: item._count.id,
@@ -61,9 +66,12 @@ export async function GET() {
       },
     });
 
-    const growth = lastMonthProjects > 0 
-      ? Math.round(((projectsThisWeek - lastMonthProjects) / lastMonthProjects) * 100)
-      : 100;
+    const growth =
+      lastMonthProjects > 0
+        ? Math.round(
+            ((projectsThisWeek - lastMonthProjects) / lastMonthProjects) * 100
+          )
+        : 100;
 
     return NextResponse.json({
       aiUsage,
