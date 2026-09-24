@@ -6,10 +6,6 @@ const nextConfig = {
     reactCompiler: false,  // Disabled for instant launch
   },
 
-  // Edge runtime for API routes where possible
-  serverRuntimeConfig: {},
-  publicRuntimeConfig: {},
-
   // Image optimization
   images: {
     remotePatterns: [
