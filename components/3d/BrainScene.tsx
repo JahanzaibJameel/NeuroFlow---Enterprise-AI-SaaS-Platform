@@ -7,11 +7,12 @@ import * as THREE from 'three';
 
 const AnimatedSphere = memo(() => {
   const sphereRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state: { clock: { elapsedTime: number } }) => {
     if (sphereRef.current) {
       sphereRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-      sphereRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
+      sphereRef.current.rotation.x =
+        Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
     }
   });
 
@@ -31,7 +32,7 @@ AnimatedSphere.displayName = 'AnimatedSphere';
 
 const Particles = memo(() => {
   const pointsRef = useRef<THREE.Points>(null);
-  
+
   // Generate random particles
   const positions = new Float32Array(500 * 3);
   for (let i = 0; i < 500 * 3; i++) {
@@ -45,7 +46,12 @@ const Particles = memo(() => {
   });
 
   return (
-    <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
+    <Points
+      ref={pointsRef}
+      positions={positions}
+      stride={3}
+      frustumCulled={false}
+    >
       <pointsMaterial
         color="#8b5cf6"
         size={0.05}
@@ -66,11 +72,11 @@ export default function BrainScene() {
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <pointLight position={[-10, -10, -5]} intensity={0.5} color="#8b5cf6" />
-      
+
       {/* 3D Objects */}
       <AnimatedSphere />
       <Particles />
-      
+
       {/* Controls */}
       <OrbitControls
         enableZoom={true}

@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { formatDate } from '@/lib/utils';
@@ -90,9 +96,7 @@ export function RecentActivity({ activities }: RecentActivityProps) {
                       </p>
                     )}
                   </div>
-                  {!activity.read && (
-                    <Badge className="text-xs">New</Badge>
-                  )}
+                  {!activity.read && <Badge className="text-xs">New</Badge>}
                 </div>
                 <span className="text-xs text-muted-foreground mt-2 block">
                   {formatDate(activity.timestamp)}
@@ -115,7 +119,7 @@ interface AnalyticsChartProps {
 
 export function AnalyticsChart({ data }: AnalyticsChartProps) {
   const maxValue = Math.max(...data.map((d) => d.tokens), 1);
-  
+
   return (
     <Card>
       <CardHeader>
@@ -179,7 +183,7 @@ export function UserStats({ stats }: UserStatsProps) {
           <p className="text-xs text-muted-foreground">Total projects</p>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Files</CardTitle>
@@ -190,7 +194,7 @@ export function UserStats({ stats }: UserStatsProps) {
           <p className="text-xs text-muted-foreground">Stored in cloud</p>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Notifications</CardTitle>
