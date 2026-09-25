@@ -30,7 +30,10 @@ export default function DashboardLoading() {
           <div className="h-6 w-32 bg-muted animate-pulse rounded" />
           <div className="space-y-2">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-4 w-full bg-muted animate-pulse rounded" />
+              <div
+                key={i}
+                className="h-4 w-full bg-muted animate-pulse rounded"
+              />
             ))}
           </div>
         </div>

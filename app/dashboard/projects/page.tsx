@@ -1,7 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -80,7 +86,9 @@ export default function ProjectsPage() {
     if (!confirm('Are you sure you want to delete this project?')) return;
 
     try {
-      const response = await fetch(`/api/projects?id=${id}`, { method: 'DELETE' });
+      const response = await fetch(`/api/projects?id=${id}`, {
+        method: 'DELETE',
+      });
       if (!response.ok) throw new Error('Failed to delete project');
 
       await fetchProjects();
@@ -109,9 +117,17 @@ export default function ProjectsPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-2">Projects</h1>
-          <p className="text-muted-foreground">Manage your projects and their details</p>
+          <p className="text-muted-foreground">
+            Manage your projects and their details
+          </p>
         </div>
-        <Button onClick={() => { setShowForm(!showForm); setEditingId(null); setFormData({ name: '', description: '' }); }}>
+        <Button
+          onClick={() => {
+            setShowForm(!showForm);
+            setEditingId(null);
+            setFormData({ name: '', description: '' });
+          }}
+        >
           <Plus className="mr-2 h-4 w-4" />
           New Project
         </Button>
@@ -121,46 +137,65 @@ export default function ProjectsPage() {
       {showForm && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId ? 'Edit Project' : 'Create New Project'}</CardTitle>
+            <CardTitle>
+              {editingId ? 'Edit Project' : 'Create New Project'}
+            </CardTitle>
             <CardDescription>
-              {editingId ? 'Update your project details' : 'Add a new project to your portfolio'}
+              {editingId
+                ? 'Update your project details'
+                : 'Add a new project to your portfolio'}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2"
+                >
                   Project Name *
                 </label>
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="Enter project name"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="description" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium mb-2"
+                >
                   Description
                 </label>
                 <Textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   placeholder="Describe your project..."
                   rows={4}
                 />
               </div>
               <div className="flex gap-2">
                 <Button type="submit" disabled={isCreating}>
-                  {isCreating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {isCreating && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
                   {editingId ? 'Update' : 'Create'} Project
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => { setShowForm(false); setEditingId(null); }}
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditingId(null);
+                  }}
                 >
                   Cancel
                 </Button>
@@ -180,8 +215,15 @@ export default function ProjectsPage() {
           <CardContent className="flex flex-col items-center justify-center py-12">
             <FolderOpen className="h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-semibold mb-2">No projects yet</h3>
-            <p className="text-muted-foreground mb-4">Create your first project to get started</p>
-            <Button onClick={() => { setShowForm(true); setEditingId(null); }}>
+            <p className="text-muted-foreground mb-4">
+              Create your first project to get started
+            </p>
+            <Button
+              onClick={() => {
+                setShowForm(true);
+                setEditingId(null);
+              }}
+            >
               <Plus className="mr-2 h-4 w-4" />
               Create Project
             </Button>
@@ -190,7 +232,10 @@ export default function ProjectsPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
-            <Card key={project.id} className="hover:shadow-md transition-shadow">
+            <Card
+              key={project.id}
+              className="hover:shadow-md transition-shadow"
+            >
               <CardHeader>
                 <CardTitle className="flex items-start justify-between gap-2">
                   <span className="flex-1">{project.name}</span>
@@ -204,18 +249,30 @@ export default function ProjectsPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" onClick={() => handleEdit(project)}>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleEdit(project)}
+                  >
                     <Pencil className="h-3 w-3 mr-1" />
                     Edit
                   </Button>
-                  <Button size="sm" variant="destructive" onClick={() => handleDelete(project.id)}>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => handleDelete(project.id)}
+                  >
                     <Trash2 className="h-3 w-3 mr-1" />
                     Delete
                   </Button>
                 </div>
                 <div className="mt-4 text-xs text-muted-foreground">
-                  <div>Created: {new Date(project.createdAt).toLocaleDateString()}</div>
-                  <div>Updated: {new Date(project.updatedAt).toLocaleDateString()}</div>
+                  <div>
+                    Created: {new Date(project.createdAt).toLocaleDateString()}
+                  </div>
+                  <div>
+                    Updated: {new Date(project.updatedAt).toLocaleDateString()}
+                  </div>
                 </div>
               </CardContent>
             </Card>

@@ -1,7 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,15 +23,15 @@ export default function SettingsPage() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
-    
+
     // Simulate save
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     toast({
       title: 'Settings Saved',
       description: 'Your preferences have been updated successfully.',
     });
-    
+
     setIsSaving(false);
   };
 
@@ -35,7 +41,9 @@ export default function SettingsPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-2">Settings</h1>
-          <p className="text-muted-foreground">Manage your account settings and preferences</p>
+          <p className="text-muted-foreground">
+            Manage your account settings and preferences
+          </p>
         </div>
       </div>
 
@@ -52,11 +60,20 @@ export default function SettingsPage() {
           <form onSubmit={handleSave} className="space-y-4">
             <div className="grid gap-2">
               <Label htmlFor="name">Full Name</Label>
-              <Input id="name" placeholder="Enter your name" defaultValue="Admin User" />
+              <Input
+                id="name"
+                placeholder="Enter your name"
+                defaultValue="Admin User"
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="Enter your email" defaultValue="admin@neuroflow.dev" />
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                defaultValue="admin@neuroflow.dev"
+              />
             </div>
             <Button type="submit" disabled={isSaving}>
               <Save className="mr-2 h-4 w-4" />
@@ -73,7 +90,9 @@ export default function SettingsPage() {
             <Lock className="h-5 w-5" />
             <CardTitle>Security</CardTitle>
           </div>
-          <CardDescription>Manage your password and security settings</CardDescription>
+          <CardDescription>
+            Manage your password and security settings
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-2">
@@ -88,9 +107,7 @@ export default function SettingsPage() {
             <Label htmlFor="confirm-password">Confirm New Password</Label>
             <Input id="confirm-password" type="password" />
           </div>
-          <Button variant="outline">
-            Update Password
-          </Button>
+          <Button variant="outline">Update Password</Button>
         </CardContent>
       </Card>
 
@@ -101,13 +118,17 @@ export default function SettingsPage() {
             <Palette className="h-5 w-5" />
             <CardTitle>Appearance</CardTitle>
           </div>
-          <CardDescription>Customize how NeuroFlow looks for you</CardDescription>
+          <CardDescription>
+            Customize how NeuroFlow looks for you
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <Label>Theme Mode</Label>
-              <p className="text-sm text-muted-foreground">Choose between light, dark, or system theme</p>
+              <p className="text-sm text-muted-foreground">
+                Choose between light, dark, or system theme
+              </p>
             </div>
             <ThemeToggle />
           </div>
@@ -121,20 +142,26 @@ export default function SettingsPage() {
             <Bell className="h-5 w-5" />
             <CardTitle>Notifications</CardTitle>
           </div>
-          <CardDescription>Manage your notification preferences</CardDescription>
+          <CardDescription>
+            Manage your notification preferences
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <Label>Email Notifications</Label>
-              <p className="text-sm text-muted-foreground">Receive updates via email</p>
+              <p className="text-sm text-muted-foreground">
+                Receive updates via email
+              </p>
             </div>
             <Badge variant="outline">Coming Soon</Badge>
           </div>
           <div className="flex items-center justify-between">
             <div>
               <Label>Push Notifications</Label>
-              <p className="text-sm text-muted-foreground">Browser notifications for important updates</p>
+              <p className="text-sm text-muted-foreground">
+                Browser notifications for important updates
+              </p>
             </div>
             <Badge variant="outline">Coming Soon</Badge>
           </div>
@@ -148,20 +175,26 @@ export default function SettingsPage() {
             <Shield className="h-5 w-5" />
             <CardTitle>Account Status</CardTitle>
           </div>
-          <CardDescription>Your current plan and account information</CardDescription>
+          <CardDescription>
+            Your current plan and account information
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <Label>Current Plan</Label>
-              <p className="text-sm text-muted-foreground">Your subscription tier</p>
+              <p className="text-sm text-muted-foreground">
+                Your subscription tier
+              </p>
             </div>
             <Badge>Pro</Badge>
           </div>
           <div className="flex items-center justify-between">
             <div>
               <Label>Account Type</Label>
-              <p className="text-sm text-muted-foreground">Individual or Team</p>
+              <p className="text-sm text-muted-foreground">
+                Individual or Team
+              </p>
             </div>
             <Badge variant="secondary">Individual</Badge>
           </div>

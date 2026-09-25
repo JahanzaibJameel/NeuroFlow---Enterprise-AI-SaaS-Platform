@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Users, Mail, Phone, Calendar, Clock } from 'lucide-react';
@@ -29,7 +35,9 @@ export default function TeamPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-2">Team</h1>
-          <p className="text-muted-foreground">Manage your team members and their roles</p>
+          <p className="text-muted-foreground">
+            Manage your team members and their roles
+          </p>
         </div>
         <Button>
           <Users className="mr-2 h-4 w-4" />
@@ -51,7 +59,9 @@ export default function TeamPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Administrators</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Administrators
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -97,10 +107,17 @@ export default function TeamPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Badge variant={member.role === 'Administrator' ? 'default' : 'secondary'}>
+                  <Badge
+                    variant={
+                      member.role === 'Administrator' ? 'default' : 'secondary'
+                    }
+                  >
                     {member.role}
                   </Badge>
-                  <Badge variant="outline" className="text-green-600 border-green-600">
+                  <Badge
+                    variant="outline"
+                    className="text-green-600 border-green-600"
+                  >
                     <Clock className="h-3 w-3 mr-1" />
                     Active
                   </Badge>
@@ -124,7 +141,8 @@ export default function TeamPage() {
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
-            Team invitations require additional setup. See README for configuration details.
+            Team invitations require additional setup. See README for
+            configuration details.
           </p>
         </CardContent>
       </Card>
