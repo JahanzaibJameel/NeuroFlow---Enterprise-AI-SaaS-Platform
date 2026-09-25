@@ -1,67 +1,54 @@
-# 🧠 NeuroFlow - Enterprise AI SaaS Platform
+# 🧠 NeuroFlow - AI-Powered Dashboard Platform
 
 <div align="center">
 
-**The Next Generation of AI-Powered Dashboard Solutions**
+**An AI-Enhanced Dashboard Platform Built with Next.js 15, TypeScript, and Vercel AI SDK**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.14-black?logo=next.js&logoColor=white&style=for-the-badge)](https://nextjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6+-blue?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38bdf8?logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com)
 [![Vercel AI SDK](https://img.shields.io/badge/Vercel%20AI-SDK%203.4-black?logo=vercel&logoColor=white&style=for-the-badge)](https://sdk.vercel.ai/docs)
 [![Prisma](https://img.shields.io/badge/Prisma-5.22-2D3748?logo=prisma&logoColor=white&style=for-the-badge)](https://prisma.io)
-[![Status](https://img.shields.io/badge/status-production%20ready-success?style=for-the-badge)](.)
+[![Status](https://img.shields.io/badge/status-active%20development-yellow?style=for-the-badge)](.)
 
-[Features](#-features) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [API Reference](#-api-reference) • [Deployment](#-deployment)
+[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge)](.)
+[![TypeCheck](https://img.shields.io/badge/typecheck-passing-brightgreen?style=for-the-badge)](.)
+[![Lint](https://img.shields.io/badge/lint-passing-brightgreen?style=for-the-badge)](.)
 
 </div>
 
 ---
 
-## 📊 Executive Summary
+## 📋 Project Status - 
 
-**NeuroFlow** is a production-grade, enterprise-ready AI SaaS platform that transforms how businesses leverage generative AI. Built with **Next.js 15**, **TypeScript**, and the **Vercel AI SDK**, it delivers:
+> **This project is in active development.** The following table reflects what is **actually implemented** vs. what is **planned/mocked**.
 
-- ⚡ **Sub-100ms Response Times** via Edge Runtime optimization
-- 🎨 **Generative UI Components** from natural language prompts
-- 📈 **Real-Time Analytics** with Web Vitals tracking
-- 🔐 **Enterprise Security** with RBAC and session management
-- 🌐 **Zero-Config Deployment** to Vercel
-- 💯 **100% Type Safety** across entire codebase
+| Feature | Status | Implementation Details |
+|---------|--------|----------------------|
+| **AI Playground** | ✅ Working | Keyword-based component matching + OpenAI fallback streaming |
+| **Analytics Dashboard** | ✅ Working | Web Vitals (LCP/INP/CLS), AI token usage, project stats |
+| **3D Visualization** | ✅ Working | Three.js brain scene with particles on homepage |
+| **Authentication** | ✅ Working | NextAuth v5 (credentials + Google OAuth), JWT sessions, RBAC |
+| **Project CRUD** | ✅ Working | Full create/read/update/delete with ownership |
+| **File Management** | ⚠️ Partial | UI complete, upload requires Vercel Blob configuration |
+| **Notifications** | ✅ Working | Real-time DB storage, read/unread states |
+| **Team Management** | ⚠️ Mocked | UI complete, hardcoded demo data |
+| **Activity Log** | ⚠️ Mocked | UI complete, hardcoded demo data |
+| **Settings** | ⚠️ UI Only | Forms render but don't persist |
+| **Real-time Collaboration** | ❌ Not Implemented | PartyKit installed but not integrated |
+| **True Generative AI** | ❌ Not Implemented | Uses keyword matching, not LLM-based generation |
+| **Enterprise Security** | ⚠️ Basic | Auth works, but missing rate limiting, audit logs |
+| **Tests** | ❌ Not Implemented | Zero test files or config |
+| **Storybook** | ❌ Not Implemented | Dependencies installed, config missing |
 
-### Production Metrics
+### 🎯 Current Capabilities
 
-| Metric | Target | Achieved | Status |
-|--------|--------|----------|--------|
-| **LCP** | < 2.5s | ~1.8s | ✅ Excellent |
-| **INP** | < 200ms | ~85ms | ✅ Excellent |
-| **CLS** | < 0.1 | ~0.02 | ✅ Excellent |
-| **Bundle Size** | < 200KB | 102KB | ✅ Optimized |
-| **Build Time** | < 15s | ~9s | ✅ Fast |
-| **Type Coverage** | > 95% | 100% | ✅ Perfect |
-
----
-
-## 🎯 Live Demo & Testing
-
-### Quick Access URLs
-
-```bash
-Homepage:        http://localhost:3000
-Dashboard:       http://localhost:3000/dashboard/overview
-AI Playground:   http://localhost:3000/dashboard/ai-playground
-Analytics:       http://localhost:3000/dashboard/analytics
-Files Manager:   http://localhost:3000/dashboard/files
-Projects:        http://localhost:3000/dashboard/projects
-Team:            http://localhost:3000/dashboard/team
-Settings:        http://localhost:3000/dashboard/settings
-```
-
-### Demo Credentials
-
-| Role | Email | Password | Permissions |
-|------|-------|----------|-------------|
-| **Admin** | `admin@neuroflow.dev` | `admin123` | Full access, user management |
-| **User** | `user@neuroflow.dev` | `user123` | Standard dashboard access |
+- **Dashboard**: 9 functional pages with sidebar navigation
+- **AI Integration**: Streaming responses via Vercel AI SDK, keyword-matched components with real DB data
+- **Database**: SQLite (dev) / PostgreSQL (prod) with Prisma ORM
+- **Authentication**: Secure sessions with role-based access control
+- **UI System**: shadcn/ui components with dark mode support
 
 ---
 
@@ -69,15 +56,13 @@ Settings:        http://localhost:3000/dashboard/settings
 
 ### Prerequisites
 
-Ensure you have the following installed:
-
 ```bash
-Node.js >= 20.x    # LTS version recommended
+Node.js >= 20.x    # LTS recommended
 pnpm >= 9.x        # Package manager
 Git >= 2.x         # Version control
 ```
 
-### Installation (5 Minutes)
+### Installation (3 Minutes)
 
 ```bash
 # 1. Clone repository
@@ -89,6 +74,7 @@ pnpm install
 
 # 3. Setup environment variables
 cp .env.example .env.local
+# Edit .env.local with your values (see Configuration below)
 
 # 4. Initialize database
 pnpm prisma generate
@@ -101,408 +87,304 @@ pnpm dev
 
 ✅ **Access the app:** http://localhost:3000
 
----
+### Demo Credentials
 
-## 🛠 Technology Stack
-
-### Core Architecture
-
-<div align="center">
-
-```mermaid
-graph TB
-    A[Next.js 15 App Router] --> B[React Server Components]
-    A --> C[Edge Runtime API Routes]
-    B --> D[Client Components]
-    C --> E[Vercel AI SDK]
-    E --> F[OpenAI GPT-4]
-    D --> G[TanStack Query]
-    D --> H[Zustand Store]
-```
-
-</div>
-
-### Frontend Stack
-
-| Category | Technology | Version | Purpose |
-|----------|-----------|---------|---------|
-| **Framework** | Next.js | 15.5.14 | SSR, RSC, App Router |
-| **Language** | TypeScript | 5.6+ | Type safety, strict mode |
-| **Styling** | Tailwind CSS | 4.0 | Utility-first CSS |
-| **Components** | shadcn/ui | Latest | Radix-based UI kit |
-| **Icons** | Lucide | Latest | Consistent iconography |
-| **3D Rendering** | React Three Fiber | 9.5.0 | Three.js canvas |
-| **Charts** | Recharts | Latest | Data visualization |
-| **State** | Zustand | Latest | Client state |
-| **Server State** | SWR | Latest | Data fetching |
-| **Animations** | Framer Motion | Latest | Micro-interactions |
-
-### Backend Stack
-
-| Category | Technology | Version | Purpose |
-|----------|-----------|---------|---------|
-| **AI Framework** | Vercel AI SDK | 3.4.33 | Streaming, tool calling |
-| **LLM Provider** | OpenAI | GPT-4o-mini | Component generation |
-| **Database** | PostgreSQL / SQLite | 15+ / 3 | Data persistence |
-| **ORM** | Prisma | 5.22 | Type-safe queries |
-| **Authentication** | Auth.js | 5.0 | JWT + OAuth |
-| **File Storage** | Vercel Blob | Latest | Cloud storage |
-| **Validation** | Zod | Latest | Schema validation |
-
-### DevOps & Tooling
-
-| Category | Technology | Purpose |
-|----------|-----------|---------|
-| **Package Manager** | pnpm | Fast, disk-efficient installs |
-| **Linting** | ESLint | Code quality |
-| **Formatting** | Prettier | Consistent style |
-| **Testing** | Jest + Playwright | Unit + E2E tests |
-| **CI/CD** | GitHub Actions | Automated pipelines |
-| **Monitoring** | Sentry (optional) | Error tracking |
-| **Analytics** | Vercel Analytics | Performance metrics |
+| Role | Email | Password | Permissions |
+|------|-------|----------|-------------|
+| **Admin** | `admin@neuroflow.dev` | `admin123` | Full access, user management |
+| **User** | `user@neuroflow.dev` | `admin123` | Standard dashboard access |
 
 ---
 
-## ✨ Key Features
+## ⚙️ Configuration
 
-### 1. 🎨 Generative AI Playground
+### Required Environment Variables
 
-Transform natural language into production-ready React components using advanced prompt engineering and the Vercel AI SDK.
+Create `.env.local` from `.env.example` and fill in:
 
-**Capabilities:**
-- Natural language → React component conversion
-- Real-time streaming responses
-- Tool calling for database access
-- Token usage tracking per user
-- Context-aware component generation
+```env
+# Database (SQLite for dev, PostgreSQL for prod)
+DATABASE_URL="file:./prisma/dev.db"
 
-**Example Prompts:**
-```javascript
-// Pricing Cards
-"Create a pricing card with three tiers: Basic ($9), Pro ($29), Enterprise ($99)"
+# Auth.js - Generate with: openssl rand -base64 32
+AUTH_SECRET="your-generated-secret-here"
+AUTH_URL="http://localhost:3000"
 
-// Analytics Dashboard  
-"Build a monthly revenue chart showing growth over 12 months"
+# OAuth (Optional - for Google login)
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
 
-// User Profile Form
-"Generate a settings form with avatar upload and password change"
+# AI Features (Optional - for OpenAI fallback)
+OPENAI_API_KEY=""
 
-// Marketing Hero
-"Create a hero section with headline, subheadline, and two CTA buttons"
+# File Storage (Optional - for file uploads)
+BLOB_READ_WRITE_TOKEN=""
+
+# Monitoring (Optional)
+SENTRY_DSN=""
 ```
 
-**Technical Implementation:**
-```typescript
-// app/api/ai/stream/route.ts
-const result = await streamText({
-  model: openai('gpt-4o-mini'),
-  system: 'You are NeuroFlow AI assistant...',
-  prompt: validatedData.prompt,
-  tools: {
-    getProjects: { /* ... */ },
-    getNotifications: { /* ... */ }
-  }
-});
+### Generate AUTH_SECRET
+
+```bash
+openssl rand -base64 32
 ```
-
-### 2. 📊 Real-Time Analytics Dashboard
-
-Comprehensive performance tracking with Web Vitals integration and custom metrics.
-
-**Metrics Tracked:**
-- **LCP (Largest Contentful Paint)** - Loading performance
-- **INP (Interaction to Next Paint)** - Interactivity responsiveness
-- **CLS (Cumulative Layout Shift)** - Visual stability
-- **AI Token Usage** - Daily consumption patterns
-- **Project Growth** - Week-over-week trends
-- **User Activity** - Engagement analytics
-
-**Performance Targets:**
-```typescript
-// Web Vitals thresholds
-LCP: < 2500ms (Good) | 2500-4000ms (Needs Improvement) | > 4000ms (Poor)
-INP: < 200ms   (Good) | 200-500ms   (Needs Improvement) | > 500ms   (Poor)
-CLS: < 0.1     (Good) | 0.1-0.25    (Needs Improvement) | > 0.25    (Poor)
-```
-
-### 3. 🧠 Immersive 3D Visualization
-
-Interactive neural network visualization using React Three Fiber for engaging homepage experience.
-
-**Features:**
-- Animated wireframe sphere (brain metaphor)
-- Particle system with 500 points
-- Mouse-based orbit controls
-- Auto-rotation with smooth interpolation
-- Optimized with React.memo for performance
-
-**Implementation:**
-```typescript
-// components/3d/BrainScene.tsx
-const AnimatedSphere = memo(() => {
-  useFrame((state) => {
-    sphereRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-  });
-  return <Sphere wireframe opacity={0.3} />;
-});
-```
-
-### 4. 🔐 Enterprise Authentication & Authorization
-
-Production-grade security with Auth.js v5, role-based access control, and secure session management.
-
-**Security Features:**
-- JWT-based sessions
-- bcrypt password hashing (12 rounds)
-- OAuth 2.0 (Google provider)
-- Role-Based Access Control (RBAC)
-- Middleware route protection
-- CSRF protection built-in
-
-**Session Type Extension:**
-```typescript
-// lib/auth/types.ts
-declare module 'next-auth' {
-  interface Session {
-    user: {
-      id: string;
-      role: 'ADMIN' | 'USER';
-    } & DefaultSession['user'];
-  }
-}
-```
-
-### 5. 📁 File & Project Management
-
-Complete CRUD operations for files and projects with drag-and-drop uploads.
-
-**Capabilities:**
-- File upload to Vercel Blob
-- Metadata tracking (size, type, MIME)
-- Project organization
-- Team collaboration
-- Real-time sync with SWR
 
 ---
 
-## 📚 Documentation
+## 🏗 Architecture
+
+### Tech Stack
+
+| Layer | Technology | Version |
+|-------|------------|---------|
+| **Framework** | Next.js | 15.5.14 (App Router) |
+| **Language** | TypeScript | 5.6 (Strict Mode) |
+| **Styling** | Tailwind CSS | 3.4 |
+| **UI Components** | shadcn/ui (Radix) | Latest |
+| **3D Graphics** | React Three Fiber | 9.5 |
+| **Database** | Prisma ORM | 5.22 |
+| **Database (Dev)** | SQLite | 3.x |
+| **Database (Prod)** | PostgreSQL | 15+ |
+| **Authentication** | NextAuth.js | 5.0 (Beta) |
+| **AI SDK** | Vercel AI SDK | 3.4 |
+| **State** | Zustand / SWR | Latest |
+| **Charts** | Recharts | 2.12 |
 
 ### Project Structure
 
 ```
 neuroflow/
 ├── app/                          # Next.js App Router
-│   ├── api/                      # API Routes (Edge Runtime)
-│   │   ├── ai/
-│   │   │   └── stream/           # Generative AI endpoint
-│   │   ├── analytics/            # Analytics data
-│   │   ├── auth/                 # Auth.js handlers
-│   │   ├── files/                # File CRUD
-│   │   └── projects/             # Project CRUD
-│   ├── dashboard/                # Protected dashboard pages
-│   │   ├── overview/             # Main dashboard
-│   │   ├── ai-playground/        # AI component generator
-│   │   ├── analytics/            # Performance metrics
-│   │   ├── files/                # File manager
-│   │   ├── projects/             # Project list
-│   │   ├── team/                 # Team management
-│   │   ├── activity/             # Activity timeline
-│   │   ├── notifications/        # Notification center
-│   │   └── settings/             # User preferences
-│   ├── error.tsx                 # Global error boundary
+│   ├── (auth)/                   # Auth route group
+│   │   ├── login/page.tsx        # Login page
+│   │   └── register/page.tsx     # Registration page
+│   ├── (marketing)/              # Marketing route group
+│   │   └── page.tsx              # Homepage with 3D scene
+│   ├── api/                      # API Routes
+│   │   ├── ai/stream/route.ts    # AI streaming endpoint
+│   │   ├── analytics/route.ts    # Analytics data
+│   │   ├── auth/[...nextauth]/   # NextAuth handler
+│   │   ├── auth/register/route.ts # Registration
+│   │   ├── files/route.ts        # File CRUD
+│   │   └── projects/route.ts     # Project CRUD
+│   ├── dashboard/                # Protected dashboard
+│   │   ├── overview/page.tsx     # Dashboard home
+│   │   ├── ai-playground/page.tsx # AI component generator
+│   │   ├── analytics/page.tsx    # Metrics & Web Vitals
+│   │   ├── projects/page.tsx     # Project management
+│   │   ├── files/page.tsx        # File manager
+│   │   ├── team/page.tsx         # Team (mocked)
+│   │   ├── activity/page.tsx     # Activity log (mocked)
+│   │   ├── notifications/page.tsx # Notifications
+│   │   └── settings/page.tsx     # Settings (UI only)
 │   ├── layout.tsx                # Root layout
-│   └── page.tsx                  # Homepage (3D scene)
+│   ├── globals.css               # Global styles
+│   └── error.tsx                 # Error boundary
 ├── components/
-│   ├── ui/                       # shadcn/ui primitives
-│   ├── 3d/                       # Three.js components
-│   └── shared/                   # Reusable components
+│   ├── 3d/BrainScene.tsx         # Three.js brain visualization
+│   ├── ai/GeneratedComponents.tsx # Pre-built component renderers
+│   ├── layout/                   # Theme provider, toggle
+│   └── ui/                       # shadcn/ui primitives
 ├── lib/
-│   ├── auth/                     # Auth configuration
-│   ├── ai/                       # AI utilities
-│   ├── db.ts                     # Prisma client
-│   └── logger.ts                 # Centralized logging
-├── hooks/                        # Custom React hooks
+│   ├── ai/components.ts          # Keyword-matched component registry
+│   ├── auth/                     # NextAuth config & types
+│   ├── db/index.ts               # Prisma client singleton
+│   ├── logger.ts                 # Logging utility (dev only)
+│   └── utils.ts                  # Helper functions (cn, formatDate, etc.)
+├── hooks/use-toast.ts            # Toast notification system
 ├── prisma/
 │   ├── schema.prisma             # Database schema
-│   └── seed.ts                   # Seed data
-└── middleware.ts                 # Route protection
+│   └── seed.ts                   # Demo data seeding
+├── middleware.ts                 # Route protection
+├── next.config.js                # Next.js configuration
+└── package.json
 ```
 
-### API Reference
+### Data Flow
 
-#### **POST /api/ai/stream**
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Client    │────▶│  Next.js    │────▶│  Prisma     │
+│  (React)    │     │  API Routes │     │  (SQLite/   │
+└─────────────┘     └─────────────┘     │  PostgreSQL)│
+       │                  │             └─────────────┘
+       │                  ▼
+       │           ┌─────────────┐
+       └──────────▶│ Vercel AI   │
+                   │ SDK + OpenAI│
+                   └─────────────┘
+```
 
-Generates UI components from prompts with streaming responses.
+---
+
+## 🔌 API Reference
+
+### Authentication
+
+All dashboard API routes require authentication via NextAuth session cookie.
+
+### POST `/api/ai/stream`
+
+Generates UI components from natural language prompts.
 
 **Request:**
-```typescript
+```json
 {
-  prompt: string;      // Natural language description
+  "prompt": "Show my top projects"
 }
 ```
 
-**Response:** (Streaming)
-```typescript
-DataStream {
-  text: string;        // Component explanation
-  code?: string;       // Generated React code
-  tokens: number;      // Token count
+**Response (Keyword Match):**
+```json
+{
+  "component": {
+    "type": "TopProjects",
+    "props": { "projects": [...] }
+  },
+  "message": "Generated TopProjects component with real data"
 }
 ```
 
-**Error Codes:**
-- `401` - Unauthorized (no valid session)
-- `400` - Invalid prompt (validation failed)
-- `429` - Rate limit exceeded
-- `500` - AI service error
+**Response (OpenAI Fallback):**
+Streaming text response with code examples.
 
----
+**Supported Keywords:**
+- `top projects`, `recent projects`, `my projects` → TopProjects
+- `activity`, `notifications`, `recent activity` → RecentActivity
+- `analytics`, `chart`, `graph` → AnalyticsChart
+- `stats`, `statistics`, `metrics` → UserStats
+- `team`, `members` → TeamMembers
 
-#### **GET /api/analytics**
+### GET `/api/analytics`
 
-Retrieves user analytics including AI usage and project stats.
+Returns user analytics data.
 
 **Response:**
-```typescript
+```json
 {
-  aiUsage: {
-    date: string;
-    tokens: number;
-    requests: number;
-  }[];
-  projects: {
-    total: number;
-    thisWeek: number;
-    growth: number;
-  };
-  webVitals: {
-    LCP: number | null;
-    INP: number | null;
-    CLS: number | null;
-  };
+  "aiUsage": [
+    { "date": "2024-01-15", "tokens": 1250, "requests": 5 }
+  ],
+  "projects": {
+    "total": 3,
+    "thisWeek": 1,
+    "growth": 50
+  }
 }
 ```
+
+### GET/POST/PUT/DELETE `/api/projects`
+
+Full project CRUD with ownership validation.
+
+### GET/POST/DELETE `/api/files`
+
+File management (requires Vercel Blob configuration).
+
+### POST `/api/auth/register`
+
+User registration with bcrypt password hashing (12 rounds).
 
 ---
 
-#### **GET /api/projects**
+## 🎨 UI Components
 
-Fetches all projects for authenticated user.
+### Design System
 
-**Response:**
-```typescript
-{
-  projects: Project[];
-}
-```
+- **Colors**: CSS variables with dark mode support
+- **Typography**: Inter font family
+- **Spacing**: Tailwind's default scale
+- **Radius**: 0.5rem base, scalable
+- **Shadows**: Subtle elevation system
 
----
+### Available Components
 
-#### **POST /api/files**
+| Component | Description |
+|-----------|-------------|
+| `Button` | Variants: default, destructive, outline, secondary, ghost, link |
+| `Card` | Header, Title, Description, Content, Footer |
+| `Input` | Form input with label support |
+| `Textarea` | Multi-line text input |
+| `Badge` | Status indicators with variants |
+| `ScrollArea` | Styled scrollbars |
+| `Toast` | Notification toasts |
+| `Badge` | Status labels |
 
-Uploads file to Vercel Blob storage.
+### 3D Components
 
-**Request:**
-```typescript
-{
-  name: string;
-  url: string;
-  size: number;
-  mimeType: string;
-}
-```
-
----
-
-### Authentication Flow
-
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant M as Middleware
-    participant A as Auth.js
-    participant D as Database
-    
-    U->>M: Access /dashboard
-    M->>A: Check session
-    A->>D: Validate JWT
-    D-->>A: Return user data
-    A-->>M: Valid session
-    M->>U: Allow access
-```
-
-### Database Schema
-
-```prisma
-model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  password      String?
-  name          String?
-  role          Role      @default(USER)
-  projects      Project[]
-  files         File[]
-  notifications Notification[]
-  aiUsage       AIUsage[]
-}
-
-model Project {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model AIUsage {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  prompt    String
-  tokens    Int?
-  createdAt DateTime @default(now())
-}
-```
+- `BrainScene` - Animated neural network visualization (Three.js)
 
 ---
 
-## 🚀 Deployment Guide
+## 🧪 Development
 
-### Vercel Deployment (Recommended)
-
-**One-Click Deploy:**
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-org/neuroflow)
-
-**Manual Deploy:**
+### Available Scripts
 
 ```bash
-# 1. Install Vercel CLI
-pnpm add -g vercel
+pnpm dev              # Start dev server
+pnpm build            # Production build
+pnpm start            # Start production server
+pnpm lint             # Run ESLint
+pnpm typecheck        # TypeScript type check
+pnpm db:generate      # Generate Prisma client
+pnpm db:push          # Push schema to database
+pnpm db:migrate       # Run migrations
+pnpm db:seed          # Seed demo data
+pnpm db:studio        # Open Prisma Studio
+```
 
-# 2. Login to Vercel
-vercel login
+### Code Quality
 
-# 3. Link project
-vercel link
+```bash
+# All must pass before commit
+pnpm typecheck  # ✅ 0 errors
+pnpm lint       # ✅ 0 errors (warnings only)
+pnpm build      # ✅ Successful
+```
 
-# 4. Deploy to production
+### Git Workflow
+
+```bash
+# Feature branch
+git checkout -b feature/your-feature
+
+# Commit with conventional messages
+git commit -m "feat: add user avatar upload"
+
+# Push and open PR
+git push origin feature/your-feature
+```
+
+---
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Push to GitHub
+2. Import in Vercel
+3. Add environment variables
+4. Deploy
+
+```bash
+# One-click deploy
 vercel --prod
 ```
 
-**Environment Variables (Vercel):**
-```bash
+### Required Production Variables
+
+```env
 DATABASE_URL="postgresql://..."
-AUTH_SECRET="your-secret-key"
-OPENAI_API_KEY="sk-..."
+AUTH_SECRET="..."
+AUTH_URL="https://your-domain.com"
 GOOGLE_CLIENT_ID="..."
 GOOGLE_CLIENT_SECRET="..."
+OPENAI_API_KEY="..."
 BLOB_READ_WRITE_TOKEN="..."
 ```
 
-### Self-Hosting (Docker)
+### Docker
 
 ```dockerfile
 FROM node:20-alpine AS base
@@ -525,218 +407,118 @@ RUN corepack enable pnpm && pnpm build
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV production
-
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./
-
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 USER nextjs
-
 EXPOSE 3000
-
 CMD ["node", "server.js"]
 ```
 
 ---
 
-## 🧪 Testing Strategy
+## 🔒 Security
 
-### Test Coverage Goals
+### Implemented
 
-| Test Type | Coverage Target | Tools |
-|-----------|----------------|-------|
-| **Unit Tests** | > 80% | Jest, Vitest |
-| **Integration Tests** | Critical paths | Playwright |
-| **E2E Tests** | User flows | Playwright |
-| **Visual Regression** | UI components | Chromatic |
+- ✅ bcrypt password hashing (12 rounds)
+- ✅ JWT-based sessions with HTTP-only cookies
+- ✅ Role-based access control (ADMIN/USER)
+- ✅ Middleware route protection
+- ✅ CSRF protection via NextAuth
+- ✅ SQL injection prevention (Prisma ORM)
+- ✅ XSS protection (React auto-escaping)
 
-### Running Tests
+### Known Gaps (Planned)
 
-```bash
-# Unit tests
-pnpm test
-
-# E2E tests
-pnpm test:e2e
-
-# Coverage report
-pnpm test:coverage
-```
-
-### Example Test (Playwright)
-
-```typescript
-// tests/ai-playground.spec.ts
-import { test, expect } from '@playwright/test';
-
-test.describe('AI Playground', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.fill('[name="email"]', 'user@neuroflow.dev');
-    await page.fill('[name="password"]', 'user123');
-    await page.click('button[type="submit"]');
-  });
-
-  test('generates component from prompt', async ({ page }) => {
-    await page.goto('/dashboard/ai-playground');
-    
-    await page.fill('textarea', 
-      'Create a pricing card with three tiers'
-    );
-    await page.click('button[type="submit"]');
-    
-    await expect(page.locator('.completion'))
-      .toBeVisible({ timeout: 10000 });
-  });
-});
-```
+- ❌ Rate limiting on auth endpoints
+- ❌ Rate limiting on AI endpoints (basic per-minute only)
+- ❌ CSP headers
+- ❌ Audit logging
+- ❌ Ownership validation on all DELETE/PUT (partial)
 
 ---
 
-## 🔒 Security Best Practices
+## 📊 Performance
 
-### Implemented Protections
+### Build Metrics
 
-✅ **Password Security**
-- bcrypt hashing (12 rounds)
-- Minimum 8 characters
-- No plaintext storage
+- **Build Time**: ~12s
+- **Static Pages**: 20/20 generated
+- **First Load JS**: ~102 KB shared
+- **TypeScript**: Strict mode, 0 errors
+- **ESLint**: 0 errors (warnings only)
 
-✅ **Session Management**
-- JWT tokens with expiration
-- HTTP-only cookies
-- Secure flag in production
+### Optimization
 
-✅ **Route Protection**
-- Middleware guards for `/dashboard`
-- Role-based access control
-- API route authentication
-
-✅ **Input Validation**
-- Zod schema validation
-- SQL injection prevention (Prisma ORM)
-- XSS protection (React escaping)
-
-### Security Checklist
-
-```markdown
-- [ ] Enable rate limiting on AI endpoints
-- [ ] Add CSP headers
-- [ ] Configure CORS properly
-- [ ] Enable HTTPS in production
-- [ ] Rotate AUTH_SECRET regularly
-- [ ] Monitor for suspicious activity
-- [ ] Implement audit logging
-- [ ] Set up Sentry for error tracking
-```
+- Code splitting via Next.js App Router
+- Dynamic imports for heavy components (3D scene)
+- `useMemo` for chart data transformations
+- Image optimization via Next.js Image
+- Font optimization via `next/font`
 
 ---
 
-## 📈 Performance Optimization
+## 🗺 Roadmap
 
-### Strategies Implemented
+### Phase 1: Stabilize (Current)
+- [x] Fix build/lint/typecheck
+- [x] Fix hydration errors
+- [x] Database setup and seeding
+- [x] Auth flow working
 
-1. **Code Splitting**
-   - Automatic with Next.js App Router
-   - Dynamic imports for heavy components
+### Phase 2: Core Features
+- [ ] True generative AI (LLM-based component generation)
+- [ ] File upload with Vercel Blob
+- [ ] Real-time notifications (Server-Sent Events)
+- [ ] Settings persistence
 
-2. **Memoization**
-   ```typescript
-   const chartData = useMemo(() => {
-     return aiUsageData.map(transformData);
-   }, [aiUsageData]);
-   
-   const AnimatedSphere = memo(() => { /* ... */ });
-   ```
+### Phase 3: Enterprise
+- [ ] Rate limiting with Upstash Redis
+- [ ] Audit logging
+- [ ] Rate limiting on all endpoints
+- [ ] Comprehensive test suite (Jest + Playwright)
+- [ ] Storybook component documentation
+- [ ] CI/CD pipeline
 
-3. **Edge Runtime**
-   - API routes run on Edge for <100ms latency
-   - Middleware executes at edge locations
-
-4. **Static Generation**
-   - 19/19 pages statically generated
-   - Incremental static regeneration where needed
-
-5. **Image Optimization**
-   - Next.js Image component
-   - WebP format, lazy loading
-
-### Bundle Analysis
-
-```
-Total Bundle Size: 102 KB (gzipped)
-├── Shared JS:      46 KB
-├── Framework:      54.2 KB
-└── Pages (avg):    14.5 KB
-```
-
----
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-#### **Issue 1: Module not found: Can't resolve '@react-three/drei'**
-
-```bash
-Solution:
-pnpm add @react-three/fiber @react-three/drei three
-```
-
-#### **Issue 2: Prisma naming inconsistency (`aIUsage` vs `aiUsage`)**
-
-```bash
-Root Cause:
-Prisma generates camelCase: AIUsage → aIUsage
-
-Fix:
-Use prisma.aIUsage (capital I) in all queries
-```
-
-#### **Issue 3: Auth.js adapter type error**
-
-```typescript
-Before (Broken):
-adapter: PrismaAdapter
-
-After (Fixed):
-const authPrisma = new PrismaClient();
-adapter: PrismaAdapter(authPrisma)
-```
-
-#### **Issue 4: Build fails with "maxSteps" deprecated**
-
-```typescript
-Before:
-useCompletion({ api: '/api/ai/stream', maxSteps: 5 })
-
-After:
-useCompletion({ api: '/api/ai/stream' })
-```
+### Phase 4: Scale
+- [ ] Multi-tenant support
+- [ ] Real-time collaboration (PartyKit/Yjs)
+- [ ] Advanced analytics dashboard
+- [ ] Plugin/extension system
 
 ---
 
 ## 🤝 Contributing
 
-### Development Workflow
+### Getting Started
 
-1. Fork repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run quality checks: `pnpm typecheck && pnpm lint && pnpm build`
+5. Submit a Pull Request
 
-### Coding Standards
+### Code Standards
 
-```typescript
-// TypeScript: Strict mode, no implicit any
-// Naming: camelCase for functions/variables, PascalCase for types/components
-// Imports: Next.js → React → Libraries → Local (alphabetical)
-// Components: Functional with hooks, typed props interfaces
-// Error Handling: Try-catch with logger utility
+- **TypeScript**: Strict mode, no `any` without justification
+- **Naming**: camelCase (functions/vars), PascalCase (types/components)
+- **Imports**: Next.js → React → Libraries → Local (alphabetical)
+- **Components**: Functional with hooks, typed props interfaces
+- **Error Handling**: Try-catch with logger utility
+
+### Commit Convention
+
+```
+feat:     New feature
+fix:      Bug fix
+docs:     Documentation
+style:    Formatting
+refactor: Code restructuring
+test:     Tests
+chore:    Maintenance
 ```
 
 ---
@@ -749,29 +531,29 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 👥 Team & Acknowledgments
 
-**Built with ❤️ by the NeuroFlow Team**
+**Built by the NeuroFlow Team**
 
 Special thanks to:
 - [Vercel](https://vercel.com) for Next.js and AI SDK
 - [shadcn/ui](https://ui.shadcn.com) for beautiful components
-- [Prisma](https://prisma.io) for type-safe database
+- [Prisma](https://prisma.io) for type-safe database access
 - [Auth.js](https://authjs.dev) for authentication
+- [Radix UI](https://radix-ui.com) for accessible primitives
 
 ---
 
-## 📞 Support & Contact
+## 📞 Support
 
-- **Documentation:** https://docs.neuroflow.dev
-- **GitHub Issues:** https://github.com/your-org/neuroflow/issues
-- **Discord Community:** https://discord.gg/neuroflow
-- **Twitter:** [@NeuroFlowAI](https://twitter.com/NeuroFlowAI)
+- **Issues**: [GitHub Issues](https://github.com/your-org/neuroflow/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-org/neuroflow/discussions)
+- **Security**: security@neuroflow.dev
 
 ---
 
 <div align="center">
 
-**Made with Next.js, TypeScript, and ☕**
+**Made with Next.js, TypeScript, and ❤️**
 
-[Report Bug](https://github.com/your-org/neuroflow/issues) · [Request Feature](https://github.com/your-org/neuroflow/issues) · [View Demo](https://neuroflow.dev)
+[Report Bug](https://github.com/your-org/neuroflow/issues) • [Request Feature](https://github.com/your-org/neuroflow/issues) • [View Demo](https://neuroflow.dev)
 
 </div>
