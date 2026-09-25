@@ -15,7 +15,15 @@ export async function GET() {
 
     const userId = session.user.id;
 
-    let files: Array<{ id: string; name: string; url: string; size: number; mimeType: string; userId: string; createdAt: Date }> = [];
+    let files: Array<{
+      id: string;
+      name: string;
+      url: string;
+      size: number;
+      mimeType: string;
+      userId: string;
+      createdAt: Date;
+    }> = [];
 
     try {
       files = await prisma.file.findMany({
