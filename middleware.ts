@@ -1,10 +1,33 @@
-import { auth } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import './lib/auth/types'; // Import session types
+import { jwtVerify } from 'jose';
+
+const JWT_SECRET = new TextEncoder().encode(process.env.AUTH_SECRET!);
+
+async function getSession(request: NextRequest) {
+  const token = request.cookies.get('neuroflow-auth-token')?.value ||
+                request.cookies.get('__session')?.value ||
+                request.cookies.get('next-auth.session-token')?.value;
+  
+  if (!token) return null;
+  
+  try {
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+    return {
+      user: {
+        id: payload.id as string,
+        email: payload.email as string,
+        name: payload.name as string,
+        role: payload.role as 'ADMIN' | 'USER',
+      }
+    };
+  } catch {
+    return null;
+  }
+}
 
 export async function middleware(request: NextRequest) {
-  const session = await auth();
+  const session = await getSession(request);
   const { pathname } = request.nextUrl;
 
   // Protected routes - require authentication
