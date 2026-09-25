@@ -8,12 +8,14 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'NeuroFlow - AI-Native SaaS Platform',
-  description: 'Build AI-powered dashboards with generative UI, real-time collaboration, and stunning 3D visuals.',
+  description:
+    'Build AI-powered dashboards with generative UI, real-time collaboration, and stunning 3D visuals.',
   keywords: ['AI', 'SaaS', 'Dashboard', 'Generative UI', 'Next.js'],
   authors: [{ name: 'NeuroFlow Team' }],
   openGraph: {
     title: 'NeuroFlow - AI-Native SaaS Platform',
-    description: 'Build AI-powered dashboards with generative UI, real-time collaboration, and stunning 3D visuals.',
+    description:
+      'Build AI-powered dashboards with generative UI, real-time collaboration, and stunning 3D visuals.',
     type: 'website',
   },
 };

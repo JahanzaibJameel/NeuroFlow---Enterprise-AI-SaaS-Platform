@@ -24,7 +24,7 @@ export default function GlobalError({
             <div className="flex justify-center">
               <AlertTriangle className="h-16 w-16 text-destructive" />
             </div>
-            
+
             <div className="space-y-2">
               <h1 className="text-2xl font-bold">Something went wrong</h1>
               <p className="text-muted-foreground">
@@ -36,7 +36,10 @@ export default function GlobalError({
               <Button onClick={reset} variant="default">
                 Try again
               </Button>
-              <Button onClick={() => window.location.href = '/'} variant="outline">
+              <Button
+                onClick={() => (window.location.href = '/')}
+                variant="outline"
+              >
                 Go home
               </Button>
             </div>
