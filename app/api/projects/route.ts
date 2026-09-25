@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { logger } from '@/lib/logger';
+import { PrismaClientInitializationError } from '@prisma/client/runtime/library';
 
 // GET all projects for current user
 export async function GET() {
@@ -14,10 +15,30 @@ export async function GET() {
 
     const userId = session.user.id;
 
-    const projects = await prisma.project.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
-    });
+    let projects: Array<{
+      id: string;
+      name: string;
+      description: string | null;
+      userId: string;
+      createdAt: Date;
+      updatedAt: Date;
+    }> = [];
+
+    try {
+      projects = await prisma.project.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+      });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable, returning empty projects list', {
+          module: 'projects-api',
+          action: 'GET',
+        });
+      } else {
+        throw dbError;
+      }
+    }
 
     return NextResponse.json({ projects });
   } catch (error) {
@@ -51,15 +72,29 @@ export async function POST(request: Request) {
       );
     }
 
-    const project = await prisma.project.create({
-      data: {
-        name,
-        description,
-        userId: session.user.id,
-      },
-    });
+    try {
+      const project = await prisma.project.create({
+        data: {
+          name,
+          description,
+          userId: session.user.id,
+        },
+      });
 
-    return NextResponse.json({ project }, { status: 201 });
+      return NextResponse.json({ project }, { status: 201 });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable during project creation', {
+          module: 'projects-api',
+          action: 'POST',
+        });
+        return NextResponse.json(
+          { error: 'Service temporarily unavailable' },
+          { status: 503 }
+        );
+      }
+      throw dbError;
+    }
   } catch (error) {
     logger.error('Error creating project', error, {
       module: 'projects-api',
@@ -91,12 +126,26 @@ export async function PUT(request: Request) {
       );
     }
 
-    const project = await prisma.project.update({
-      where: { id },
-      data: { name, description },
-    });
+    try {
+      const project = await prisma.project.update({
+        where: { id },
+        data: { name, description },
+      });
 
-    return NextResponse.json({ project });
+      return NextResponse.json({ project });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable during project update', {
+          module: 'projects-api',
+          action: 'PUT',
+        });
+        return NextResponse.json(
+          { error: 'Service temporarily unavailable' },
+          { status: 503 }
+        );
+      }
+      throw dbError;
+    }
   } catch (error) {
     logger.error('Error updating project', error, {
       module: 'projects-api',
@@ -128,9 +177,23 @@ export async function DELETE(request: Request) {
       );
     }
 
-    await prisma.project.delete({
-      where: { id },
-    });
+    try {
+      await prisma.project.delete({
+        where: { id },
+      });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable during project deletion', {
+          module: 'projects-api',
+          action: 'DELETE',
+        });
+        return NextResponse.json(
+          { error: 'Service temporarily unavailable' },
+          { status: 503 }
+        );
+      }
+      throw dbError;
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

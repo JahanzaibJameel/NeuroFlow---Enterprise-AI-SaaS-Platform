@@ -9,14 +9,12 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Upload,
   File,
   Trash2,
   Download,
-  Image,
   Film,
   Music,
   Loader2,
@@ -106,7 +104,7 @@ export default function FilesPage() {
   };
 
   const getFileIcon = (mimeType: string) => {
-    if (mimeType.startsWith('image/')) return <Image className="h-5 w-5" />;
+    if (mimeType.startsWith('image/')) return <File className="h-5 w-5" />;
     if (mimeType.startsWith('video/')) return <Film className="h-5 w-5" />;
     if (mimeType.startsWith('audio/')) return <Music className="h-5 w-5" />;
     return <File className="h-5 w-5" />;

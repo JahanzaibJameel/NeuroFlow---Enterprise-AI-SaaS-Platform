@@ -55,7 +55,6 @@ export default function AnalyticsPage() {
     INP: null as number | null,
     CLS: null as number | null,
   });
-  const { toast } = useToast();
 
   // Fetch analytics data
   const fetchAnalytics = useCallback(async () => {

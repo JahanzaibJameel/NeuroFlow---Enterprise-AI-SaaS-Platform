@@ -156,7 +156,7 @@ function QuickPrompt({
   onSelect,
 }: {
   prompt: string;
-  onSelect: (prompt: string) => void;
+  onSelect: (_prompt: string) => void;
 }) {
   return (
     <button
