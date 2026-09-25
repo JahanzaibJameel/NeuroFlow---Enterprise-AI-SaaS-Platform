@@ -7,7 +7,7 @@ import { logger } from '@/lib/logger';
 export async function GET() {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -21,7 +21,10 @@ export async function GET() {
 
     return NextResponse.json({ files });
   } catch (error) {
-    logger.error('Error fetching files', error, { module: 'files-api', action: 'GET' });
+    logger.error('Error fetching files', error, {
+      module: 'files-api',
+      action: 'GET',
+    });
     return NextResponse.json(
       { error: 'Failed to fetch files' },
       { status: 500 }
@@ -33,7 +36,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -60,7 +63,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ file }, { status: 201 });
   } catch (error) {
-    logger.error('Error creating file', error, { module: 'files-api', action: 'POST' });
+    logger.error('Error creating file', error, {
+      module: 'files-api',
+      action: 'POST',
+    });
     return NextResponse.json(
       { error: 'Failed to create file' },
       { status: 500 }
@@ -72,7 +78,7 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -81,10 +87,7 @@ export async function DELETE(request: Request) {
     const id = searchParams.get('id');
 
     if (!id) {
-      return NextResponse.json(
-        { error: 'File ID required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'File ID required' }, { status: 400 });
     }
 
     await prisma.file.delete({
@@ -93,7 +96,10 @@ export async function DELETE(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    logger.error('Error deleting file', error, { module: 'files-api', action: 'DELETE' });
+    logger.error('Error deleting file', error, {
+      module: 'files-api',
+      action: 'DELETE',
+    });
     return NextResponse.json(
       { error: 'Failed to delete file' },
       { status: 500 }

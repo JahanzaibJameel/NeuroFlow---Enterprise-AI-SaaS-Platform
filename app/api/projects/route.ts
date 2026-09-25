@@ -7,7 +7,7 @@ import { logger } from '@/lib/logger';
 export async function GET() {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -21,7 +21,10 @@ export async function GET() {
 
     return NextResponse.json({ projects });
   } catch (error) {
-    logger.error('Error fetching projects', error, { module: 'projects-api', action: 'GET' });
+    logger.error('Error fetching projects', error, {
+      module: 'projects-api',
+      action: 'GET',
+    });
     return NextResponse.json(
       { error: 'Failed to fetch projects' },
       { status: 500 }
@@ -33,7 +36,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -58,7 +61,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ project }, { status: 201 });
   } catch (error) {
-    logger.error('Error creating project', error, { module: 'projects-api', action: 'POST' });
+    logger.error('Error creating project', error, {
+      module: 'projects-api',
+      action: 'POST',
+    });
     return NextResponse.json(
       { error: 'Failed to create project' },
       { status: 500 }
@@ -70,7 +76,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -92,7 +98,10 @@ export async function PUT(request: Request) {
 
     return NextResponse.json({ project });
   } catch (error) {
-    logger.error('Error updating project', error, { module: 'projects-api', action: 'PUT' });
+    logger.error('Error updating project', error, {
+      module: 'projects-api',
+      action: 'PUT',
+    });
     return NextResponse.json(
       { error: 'Failed to update project' },
       { status: 500 }
@@ -104,7 +113,7 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const session = await auth();
-    
+
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -125,7 +134,10 @@ export async function DELETE(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    logger.error('Error deleting project', error, { module: 'projects-api', action: 'DELETE' });
+    logger.error('Error deleting project', error, {
+      module: 'projects-api',
+      action: 'DELETE',
+    });
     return NextResponse.json(
       { error: 'Failed to delete project' },
       { status: 500 }

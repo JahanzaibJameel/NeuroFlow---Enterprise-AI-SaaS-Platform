@@ -50,9 +50,9 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { 
+      {
         message: 'User created successfully',
-        userId: user.id 
+        userId: user.id,
       },
       { status: 201 }
     );
@@ -64,7 +64,10 @@ export async function POST(request: Request) {
       );
     }
 
-    logger.error('Registration failed', error, { module: 'auth-api', action: 'register' });
+    logger.error('Registration failed', error, {
+      module: 'auth-api',
+      action: 'register',
+    });
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
