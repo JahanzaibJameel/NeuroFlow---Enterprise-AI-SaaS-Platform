@@ -1,9 +1,9 @@
 /**
  * Centralized error logging utility for NeuroFlow
- * 
+ *
  * In development: Logs to console for debugging
  * In production: Sends to monitoring service (Sentry, etc.)
- * 
+ *
  * Usage:
  *   import { logger } from '@/lib/logger';
  *   logger.error('Database connection failed', error);
@@ -29,7 +29,7 @@ export const logger = {
         context,
       });
     }
-    
+
     // Production: Send to monitoring service
     // Example: Sentry.captureException(error, { tags: context });
   },

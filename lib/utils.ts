@@ -56,5 +56,7 @@ export function truncateText(text: string, maxLength: number): string {
  * @returns Random string ID
  */
 export function generateId(length: number = 8): string {
-  return Math.random().toString(36).substring(2, length + 2);
+  return Math.random()
+    .toString(36)
+    .substring(2, length + 2);
 }
