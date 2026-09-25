@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { logger } from '@/lib/logger';
+import { PrismaClientInitializationError } from '@prisma/client/runtime/library';
 
 // GET all files for current user
 export async function GET() {
@@ -14,10 +15,23 @@ export async function GET() {
 
     const userId = session.user.id;
 
-    const files = await prisma.file.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
-    });
+    let files: Array<{ id: string; name: string; url: string; size: number; mimeType: string; userId: string; createdAt: Date }> = [];
+
+    try {
+      files = await prisma.file.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+      });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable, returning empty files list', {
+          module: 'files-api',
+          action: 'GET',
+        });
+      } else {
+        throw dbError;
+      }
+    }
 
     return NextResponse.json({ files });
   } catch (error) {
@@ -51,17 +65,31 @@ export async function POST(request: Request) {
       );
     }
 
-    const file = await prisma.file.create({
-      data: {
-        name,
-        url,
-        size,
-        mimeType,
-        userId: session.user.id,
-      },
-    });
+    try {
+      const file = await prisma.file.create({
+        data: {
+          name,
+          url,
+          size,
+          mimeType,
+          userId: session.user.id,
+        },
+      });
 
-    return NextResponse.json({ file }, { status: 201 });
+      return NextResponse.json({ file }, { status: 201 });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable during file creation', {
+          module: 'files-api',
+          action: 'POST',
+        });
+        return NextResponse.json(
+          { error: 'Service temporarily unavailable' },
+          { status: 503 }
+        );
+      }
+      throw dbError;
+    }
   } catch (error) {
     logger.error('Error creating file', error, {
       module: 'files-api',
@@ -90,9 +118,23 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'File ID required' }, { status: 400 });
     }
 
-    await prisma.file.delete({
-      where: { id },
-    });
+    try {
+      await prisma.file.delete({
+        where: { id },
+      });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable during file deletion', {
+          module: 'files-api',
+          action: 'DELETE',
+        });
+        return NextResponse.json(
+          { error: 'Service temporarily unavailable' },
+          { status: 503 }
+        );
+      }
+      throw dbError;
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
