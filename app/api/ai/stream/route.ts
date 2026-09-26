@@ -7,6 +7,7 @@ import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { logger } from '@/lib/logger';
 import { generateComponentFromPrompt } from '@/lib/ai/components';
+import { PrismaClientInitializationError } from '@prisma/client/runtime/library';
 
 const promptSchema = z.object({
   prompt: z.string().min(1, 'Prompt is required'),
@@ -25,14 +26,26 @@ export async function POST(request: Request) {
     const validatedData = promptSchema.parse(body);
 
     // Rate limiting check
-    const recentUsage = await prisma.aIUsage.findMany({
-      where: {
-        userId,
-        createdAt: {
-          gte: new Date(Date.now() - 60 * 1000), // Last minute
+    let recentUsage: Array<{ createdAt: Date }> = [];
+    try {
+      recentUsage = await prisma.aIUsage.findMany({
+        where: {
+          userId,
+          createdAt: {
+            gte: new Date(Date.now() - 60 * 1000), // Last minute
+          },
         },
-      },
-    });
+      });
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable for rate limit check', {
+          module: 'ai-api',
+          action: 'rate-limit',
+        });
+      } else {
+        throw dbError;
+      }
+    }
 
     if (recentUsage.length >= 10) {
       return NextResponse.json(
@@ -42,21 +55,41 @@ export async function POST(request: Request) {
     }
 
     // Try to match prompt to component registry first
-    const matchedComponent = await generateComponentFromPrompt(
-      validatedData.prompt,
-      userId
-    );
+    let matchedComponent: Awaited<
+      ReturnType<typeof generateComponentFromPrompt>
+    > = null;
+    try {
+      matchedComponent = await generateComponentFromPrompt(
+        validatedData.prompt,
+        userId
+      );
+    } catch (dbError) {
+      if (dbError instanceof PrismaClientInitializationError) {
+        logger.warn('Database unavailable for component generation', {
+          module: 'ai-api',
+          action: 'component-generation',
+        });
+      } else {
+        throw dbError;
+      }
+    }
 
     // If we have a matched component, return it with structured data
     if (matchedComponent) {
       // Log AI usage
-      await prisma.aIUsage.create({
-        data: {
-          userId,
-          prompt: validatedData.prompt,
-          tokens: 50, // Fixed token count for component generation
-        },
-      });
+      try {
+        await prisma.aIUsage.create({
+          data: {
+            userId,
+            prompt: validatedData.prompt,
+            tokens: 50, // Fixed token count for component generation
+          },
+        });
+      } catch (dbError) {
+        if (!(dbError instanceof PrismaClientInitializationError)) {
+          logger.error('AI usage logging failed', dbError);
+        }
+      }
 
       return NextResponse.json({
         component: matchedComponent,
@@ -65,6 +98,45 @@ export async function POST(request: Request) {
     }
 
     // Fall back to AI text generation for non-component prompts
+    // Note: @ai-sdk/openai returns LanguageModelV3 but ai@3.x expects LanguageModelV1.
+    // The runtime model works correctly; casting is needed for type compatibility.
+    let projectsForTools: Array<{
+      id: string;
+      name: string;
+      description: string | null;
+      updatedAt: Date;
+    }> = [];
+    let notificationsForTools: Array<{
+      id: string;
+      title: string;
+      content: string | null;
+      createdAt: Date;
+      read: boolean;
+    }> = [];
+    try {
+      projectsForTools = await prisma.project.findMany({
+        where: { userId },
+        orderBy: { updatedAt: 'desc' },
+        take: 5,
+      });
+    } catch (dbError) {
+      if (!(dbError instanceof PrismaClientInitializationError)) {
+        throw dbError;
+      }
+    }
+
+    try {
+      notificationsForTools = await prisma.notification.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        take: 10,
+      });
+    } catch (dbError) {
+      if (!(dbError instanceof PrismaClientInitializationError)) {
+        throw dbError;
+      }
+    }
+
     // Note: @ai-sdk/openai returns LanguageModelV3 but ai@3.x expects LanguageModelV1.
     // The runtime model works correctly; casting is needed for type compatibility.
     const result = await streamText({
@@ -89,26 +161,12 @@ Format your responses with clear explanations followed by code blocks when appro
         getProjects: {
           description: 'Get user projects from database',
           parameters: z.object({}),
-          execute: async () => {
-            const projects = await prisma.project.findMany({
-              where: { userId },
-              orderBy: { updatedAt: 'desc' },
-              take: 5,
-            });
-            return projects;
-          },
+          execute: async () => projectsForTools,
         },
         getNotifications: {
           description: 'Get user notifications',
           parameters: z.object({}),
-          execute: async () => {
-            const notifications = await prisma.notification.findMany({
-              where: { userId },
-              orderBy: { createdAt: 'desc' },
-              take: 10,
-            });
-            return notifications;
-          },
+          execute: async () => notificationsForTools,
         },
       },
     });
