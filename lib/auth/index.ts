@@ -5,12 +5,22 @@ import bcrypt from 'bcryptjs';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import { prisma } from '@/lib/db';
+import { PrismaClientInitializationError } from '@prisma/client/runtime/library';
 import './types'; // Import types for session extension
 
-const authPrisma = new PrismaClient();
+// Lazy PrismaAdapter to avoid database connection at build time
+let adapterInstance: ReturnType<typeof PrismaAdapter> | null = null;
+
+function getAdapter() {
+  if (!adapterInstance) {
+    const authPrisma = new PrismaClient();
+    adapterInstance = PrismaAdapter(authPrisma);
+  }
+  return adapterInstance;
+}
 
 export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(authPrisma),
+  adapter: getAdapter(),
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
